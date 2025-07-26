@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 interface ControlsProps {
   aiState: 'idle' | 'listening' | 'thinking' | 'speaking'

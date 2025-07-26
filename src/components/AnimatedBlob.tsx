@@ -1,6 +1,6 @@
-import React, { useRef, useMemo } from 'react'
+import { useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { Mesh, Vector3, Color } from 'three'
+import { Mesh } from 'three'
 import { MeshDistortMaterial } from '@react-three/drei'
 import { useControls } from 'leva'
 
@@ -81,14 +81,12 @@ export function AnimatedBlob({ position, color, scale, speed, aiState }: Animate
     }
   }, [aiState])
 
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (!meshRef.current) return
     
     timeRef.current += delta * speed
 
     const { 
-      distortSpeed, 
-      distortIntensity, 
       rotationSpeed, 
       floatAmplitude, 
       pulseIntensity 

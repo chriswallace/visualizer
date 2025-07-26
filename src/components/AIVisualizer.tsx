@@ -1,7 +1,4 @@
-import React, { useMemo } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { EffectComposer, Bloom, ChromaticAberration } from '@react-three/postprocessing'
-import { BlendFunction } from 'postprocessing'
+import { useMemo } from 'react'
 import { AnimatedBlob } from './AnimatedBlob'
 import { useControls } from 'leva'
 
@@ -11,13 +8,9 @@ interface AIVisualizerProps {
 
 export function AIVisualizer({ aiState }: AIVisualizerProps) {
   const { 
-    blobCount,
-    bloomIntensity,
-    chromaIntensity 
+    blobCount
   } = useControls('Global Effects', {
-    blobCount: { value: 5, min: 3, max: 8, step: 1 },
-    bloomIntensity: { value: 0.8, min: 0, max: 2, step: 0.1 },
-    chromaIntensity: { value: 0.1, min: 0, max: 1, step: 0.01 }
+    blobCount: { value: 5, min: 3, max: 8, step: 1 }
   })
 
   // Generate blob configurations based on AI state
@@ -48,6 +41,7 @@ export function AIVisualizer({ aiState }: AIVisualizerProps) {
     <>
       <ambientLight intensity={0.2} />
       <pointLight position={[10, 10, 10]} intensity={0.5} />
+      <pointLight position={[-10, -10, -10]} intensity={0.3} color="#ff69b4" />
       
       {blobConfigs.map((config) => (
         <AnimatedBlob
@@ -59,19 +53,6 @@ export function AIVisualizer({ aiState }: AIVisualizerProps) {
           aiState={aiState}
         />
       ))}
-      
-      <EffectComposer>
-        <Bloom
-          intensity={bloomIntensity}
-          luminanceThreshold={0.1}
-          luminanceSmoothing={0.9}
-          blendFunction={BlendFunction.ADD}
-        />
-        <ChromaticAberration
-          blendFunction={BlendFunction.NORMAL}
-          offset={[chromaIntensity * 0.002, chromaIntensity * 0.001]}
-        />
-      </EffectComposer>
     </>
   )
 }
