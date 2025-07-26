@@ -16,7 +16,7 @@ export default function App() {
           alpha: true,
           powerPreference: "high-performance"
         }}
-        style={{ background: 'radial-gradient(circle, #0a0a0a 0%, #000000 100%)' }}
+        style={{ background: 'radial-gradient(circle, #0a0a1a 0%, #000000 100%)' }}
       >
         <AIVisualizer aiState={aiState} />
       </Canvas>
