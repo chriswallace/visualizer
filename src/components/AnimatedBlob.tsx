@@ -126,31 +126,11 @@ export function AnimatedBlob({ position, color, scale, speed, aiState, layerInde
     }
     lastStateRef.current = aiState
 
-    // Entangled organic movement inspired by Björn Staal
+    // Simple organic movement
     const time = timeRef.current
-    
-    // Primary flowing waves - different frequencies create natural variation
-    const primaryX = Math.sin(time * 0.6 + layerIndex * 0.8) * 0.5
-    const primaryY = Math.cos(time * 0.4 + layerIndex * 1.1) * 0.4
-    const primaryZ = Math.sin(time * 0.3 + layerIndex * 1.3) * 0.35
-    
-    // Secondary harmonics - create complex, entangled motion
-    const harmonicX = Math.sin(time * 1.7 + layerIndex * 2.1 + Math.PI * 0.3) * 0.2
-    const harmonicY = Math.cos(time * 2.3 + layerIndex * 1.6 + Math.PI * 0.7) * 0.15
-    const harmonicZ = Math.sin(time * 1.9 + layerIndex * 2.4 + Math.PI * 0.5) * 0.18
-    
-    // Interconnected influences - each blob affects others slightly
-    const interconnectX = Math.sin(time * 0.5 + layerIndex * 0.3) * Math.cos(time * 0.7 + layerIndex * 0.9) * 0.1
-    const interconnectY = Math.cos(time * 0.6 + layerIndex * 0.4) * Math.sin(time * 0.8 + layerIndex * 1.2) * 0.08
-    const interconnectZ = Math.sin(time * 0.7 + layerIndex * 0.5) * Math.cos(time * 0.9 + layerIndex * 1.1) * 0.09
-    
-    // Breathing pulse - all blobs share a subtle collective rhythm
-    const collectivePulse = Math.sin(time * 0.2) * 0.05
-    
-    // Combine all movements for complex, organic, entangled motion
-    let floatX = primaryX + harmonicX + interconnectX + collectivePulse
-    let floatY = primaryY + harmonicY + interconnectY + collectivePulse * 0.7
-    let floatZ = primaryZ + harmonicZ + interconnectZ + collectivePulse * 0.5
+    let floatX = Math.sin(time * 0.8 + layerIndex * 1.2) * 0.4
+    let floatY = Math.cos(time * 0.6 + layerIndex * 0.9) * 0.4
+    let floatZ = Math.sin(time * 0.4 + layerIndex * 1.5) * 0.3
     
     // Glitch effects for glitchout state - center and minimize movement
     if (aiState === 'glitchout') {
@@ -220,13 +200,8 @@ export function AnimatedBlob({ position, color, scale, speed, aiState, layerInde
       meshRef.current.position.z = position[2] + floatZ
     }
 
-    // Complex entangled breathing effect
-    const primaryBreathe = Math.sin(time * 1.2 + layerIndex * 0.7) * 0.12
-    const secondaryBreathe = Math.cos(time * 1.8 + layerIndex * 1.3 + Math.PI * 0.6) * 0.08
-    const collectiveBreathe = Math.sin(time * 0.3) * 0.05 // Shared rhythm
-    const harmonic = Math.sin(time * 2.4 + layerIndex * 2.1) * 0.03
-    
-    let breathe = 1 + primaryBreathe + secondaryBreathe + collectiveBreathe + harmonic
+    // Breathing effect
+    let breathe = 1 + Math.sin(time * 1.2 + layerIndex * 0.7) * 0.15
     
     // Glitch scale effects - shrink much faster and less dramatically
     if (aiState === 'glitchout') {
@@ -256,14 +231,11 @@ export function AnimatedBlob({ position, color, scale, speed, aiState, layerInde
     
     meshRef.current.scale.setScalar(scale * breathe)
 
-    // Entangled opacity variations - blobs influence each other's visibility
+    // Dynamic opacity for varying solidness
     const baseOpacity = 0.8
-    const primaryOpacity = Math.sin(time * 0.3 + layerIndex * 2.1) * 0.2
-    const secondaryOpacity = Math.cos(time * 0.7 + layerIndex * 1.8) * 0.12
-    const interconnectedOpacity = Math.sin(time * 0.4 + layerIndex * 0.6) * Math.cos(time * 0.5 + layerIndex * 1.4) * 0.08
-    const collectiveOpacity = Math.sin(time * 0.15) * 0.05 // Shared breathing rhythm
-    
-    let dynamicOpacity = baseOpacity + primaryOpacity + secondaryOpacity + interconnectedOpacity + collectiveOpacity
+    const opacityVariation = Math.sin(time * 0.3 + layerIndex * 2.1) * 0.25 + 
+                            Math.cos(time * 0.7 + layerIndex * 1.8) * 0.15
+    let dynamicOpacity = baseOpacity + opacityVariation
     
     // Glitch opacity effects - keep them more visible
     if (aiState === 'glitchout') {
@@ -271,7 +243,7 @@ export function AnimatedBlob({ position, color, scale, speed, aiState, layerInde
       const glitchProgress = Math.min(glitchStartTimeRef.current / 0.3, 1)
       const easedGlitchProgress = glitchProgress * glitchProgress * (3 - 2 * glitchProgress)
       
-      const normalOpacity = baseOpacity + primaryOpacity + secondaryOpacity + interconnectedOpacity + collectiveOpacity
+      const normalOpacity = baseOpacity + opacityVariation
       const glitchOpacity = 0.9
       dynamicOpacity = normalOpacity + (glitchOpacity - normalOpacity) * easedGlitchProgress
     } else if (transitionTimeRef.current < 2.0) {
@@ -280,7 +252,7 @@ export function AnimatedBlob({ position, color, scale, speed, aiState, layerInde
       const easedProgress = transitionProgress * transitionProgress * (3 - 2 * transitionProgress)
       
       const glitchOpacity = 0.9
-      const normalOpacity = baseOpacity + primaryOpacity + secondaryOpacity + interconnectedOpacity + collectiveOpacity
+      const normalOpacity = baseOpacity + opacityVariation
       dynamicOpacity = glitchOpacity + (normalOpacity - glitchOpacity) * easedProgress
     } else if (postGlitchTransitionRef.current < 1.0) {
       // Additional smooth opacity transition
@@ -288,7 +260,7 @@ export function AnimatedBlob({ position, color, scale, speed, aiState, layerInde
       const easedPostProgress = postTransitionProgress * postTransitionProgress * (3 - 2 * postTransitionProgress)
       
       // Ensure opacity variations are fully restored
-      const normalOpacity = baseOpacity + primaryOpacity + secondaryOpacity + interconnectedOpacity + collectiveOpacity
+      const normalOpacity = baseOpacity + opacityVariation
       dynamicOpacity = normalOpacity * (0.98 + 0.02 * easedPostProgress) // Smooth final opacity restoration
     }
     

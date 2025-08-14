@@ -53,24 +53,28 @@ npm run preview
 ## AI State Behaviors
 
 ### Idle State
+
 - Gentle floating and rotation
 - Subtle pulsing
 - Cool blue/purple color palette
 - Low distortion and movement speed
 
 ### Listening State
+
 - Increased animation speed
 - Higher amplitude movements
 - Vibrant green colors
 - Enhanced pulsing to suggest attentiveness
 
 ### Thinking State
+
 - Rapid, chaotic movements
 - High distortion effects
 - Warm orange/yellow colors
 - Irregular pulsing patterns
 
 ### Speaking State
+
 - Rhythmic, expressive animations
 - Moderate to high distortion
 - Pink/red color scheme
@@ -81,10 +85,12 @@ npm run preview
 The visualizer is highly customizable through several mechanisms:
 
 ### Leva Controls
+
 - **Global Effects**: Adjust blob count, bloom intensity, chromatic aberration
 - **Blob Material**: Control distortion scale, roughness, metalness, emissive intensity
 
 ### Code Customization
+
 - Modify color palettes in `AIVisualizer.tsx`
 - Adjust animation parameters in `AnimatedBlob.tsx`
 - Add new AI states by extending the state types and configurations
@@ -117,6 +123,7 @@ src/
 ## Contributing
 
 Feel free to contribute by:
+
 - Adding new AI states
 - Implementing additional visual effects
 - Improving performance optimizations

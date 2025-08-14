@@ -38,7 +38,7 @@ export function AIVisualizer({ aiState }: AIVisualizerProps) {
           Math.sin(angle) * radius,
           (Math.random() - 0.5) * 0.2
         ] as [number, number, number],
-        color: getSpecificColor(i, colorShift, aiState),
+        color: getSpecificColor(i, colorShift),
         scale: (1.0 + Math.random() * 0.5) * sizeModifier,
         speed: movement * (0.5 + Math.random() * 0.5),
         layerIndex: i
@@ -68,24 +68,7 @@ export function AIVisualizer({ aiState }: AIVisualizerProps) {
   )
 }
 
-function getIdleColors(): string[] {
-  return [
-    '#FF3B30', // red
-    '#FF6B00', // orange
-    '#FFC400', // yellow (muted to avoid blowout)
-    '#A0F400', // lime
-    '#00E676', // green
-    '#00D5FF', // cyan
-    '#1E88E5', // blue
-    '#3949AB', // indigo
-    '#8E24AA', // violet
-    '#D81B60', // magenta
-    '#FF4081', // pink
-    '#FF1744'  // red accent
-  ]
-}
-
-function getActiveColors(): string[] {
+function getSpecificColors(): string[] {
   return [
     '#D900FF', // Bright magenta
     '#FF3333', // Bright red
@@ -98,8 +81,8 @@ function getActiveColors(): string[] {
   ]
 }
 
-function getSpecificColor(index: number, shift: number, aiState: string): string {
-  const colors = aiState === 'idle' ? getIdleColors() : getActiveColors()
+function getSpecificColor(index: number, shift: number): string {
+  const colors = getSpecificColors()
   const shiftedIndex = (index + shift) % colors.length
   return colors[shiftedIndex]
 }

@@ -9,12 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^9.88.17",
+    "@react-three/fiber": "^8.15.12",
+    "@specy/liquid-glass-react": "^1.0.2",
+    "@types/animejs": "^3.1.13",
+    "animejs": "^4.1.2",
+    "leva": "^0.9.35",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@react-three/fiber": "^8.15.12",
-    "@react-three/drei": "^9.88.17",
-    "three": "^0.158.0",
-    "leva": "^0.9.35"
+    "three": "^0.158.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
