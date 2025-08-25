@@ -1,23 +1,15 @@
 import { useMemo } from 'react'
 import { AnimatedBlob } from './AnimatedBlob'
-import { useControls } from 'leva'
 
 interface AIVisualizerProps {
   aiState: 'idle' | 'listening' | 'thinking' | 'speaking' | 'glitchout'
 }
 
 export function AIVisualizer({ aiState }: AIVisualizerProps) {
-  const { 
-    blobCount,
-    spacing,
-    movement,
-    colorShift
-  } = useControls('AI Blobs', {
-    blobCount: { value: 5, min: 3, max: 8, step: 1 },
-    spacing: { value: 0.4, min: 0.2, max: 1.0, step: 0.1 },
-    movement: { value: 1.0, min: 0.5, max: 2.0, step: 0.1 },
-    colorShift: { value: 0, min: 0, max: 7, step: 1 }
-  })
+  const blobCount = 5
+  const spacing = 0.4
+  const movement = 1.0
+  const colorShift = 0
 
   const blobConfigs = useMemo(() => {
     const configs = []
